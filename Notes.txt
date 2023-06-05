@@ -1,5 +1,5 @@
 supervised learning
-    we'll be having labels and based on that we predict the outcome -> regression and classification 
+    we'll be having labels and based on that we predict the outcome -> regression and classification .
 
 1.regression house price prediction-> take in multiple values and then we map it on a graph
     based on this graph we predict the outcome of the data 
