@@ -1,0 +1,25 @@
+supervised learning
+    we'll be having labels and based on that we predict the outcome -> regression and classification 
+
+1.regression house price prediction-> take in multiple values and then we map it on a graph
+    based on this graph we predict the outcome of the data 
+2. classification -> it's a either yes or no question 
+    if there are more than 2 categories we use classification based on categories based on parameters
+    as we add more parameters the model goes complex
+    therefore usage of multiple parameters is always useful
+
+un-supervised learning
+    the data is'nt labelled therefore we don't know what should be done, therefore we won't be having any parameters -> categorization
+    1.in unsupervised we group the data which are similar and classfy them as group 1 and etc.. 
+
+    data only comes with input x and we dont have output labels y, hence algorithim has to find structure in the data
+
+    -> clustering
+    -> dimensionality reduction
+    
+
+introduction to pandas 
+    type        pandas name 
+    vector      .series
+    (1-dim)
+    matrix      .dataframe
