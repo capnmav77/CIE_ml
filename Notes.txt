@@ -23,3 +23,5 @@ introduction to pandas
     vector      .series
     (1-dim)
     matrix      .dataframe
+
+linear regression model is all about minimizing the cost error by using linear regression function and finding the lowest part of the graph 
