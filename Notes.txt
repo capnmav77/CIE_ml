@@ -25,3 +25,33 @@ introduction to pandas
     matrix      .dataframe
 
 linear regression model is all about minimizing the cost error by using linear regression function and finding the lowest part of the graph 
+
+
+06062023
+Linear Regression model part 1:                                                                   
+
+    what is linear regression?
+    -> finding the best fit line fit for your data
+    
+    how to find the best fit line? -> y=mx+c [m? , c?, we have a input x and it predicts output y]
+        we use F(x) = wX + b : where w,b are parameters/coefficients/weights
+        where x = 'input' - 'feature'
+        where y = 'output' - 'target' 
+        m = number of training examples
+
+        for each values are refrenced by x^i and y^i where i is the position of the object in the dataset
+
+        1. find the cost function : 
+
+                the distance from the line to the actual point J(w,b) = 1/2m(sum|x^i - x^^i|) : where m is the number of table entries
+            therefore cost = mean squared error .
+
+            using the above formula we get the value of the J[w] and J[b].
+
+            once we plot it in 2d we get a parabola.
+
+            if we also want to include both the values i.e w and b then its a type of a hammock in 3d .
+
+            in order to increase the accuracy of the model we need to minimize the cost of the model hence we need something called
+
+
