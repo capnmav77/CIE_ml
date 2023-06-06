@@ -72,3 +72,24 @@ Linear Regression model part 1:
                 b = temp_b
             
             if there are multiple minimas then we use squared error cost to find any one minima 
+
+        3. multiple parameters: 
+            it would be catastrophic to just include only one feature and predict the outcome based on that 
+            therefore we use multiple factors like number of bedrooms , how new the house is etc. therefore 
+            instead of using multiple factors into the equation we use vectors 
+            i.e -> F(x) = w.X + b 
+            where w.X = w1x1+ w2x2+ w3x3+ w4x4+ ... wnxn.
+            
+            w and x can be represented as a matrix and can be multiplied consecutively to get the dot product 
+            we can also use f = np.dot(w,x) //vectorised calculation
+            therefore we get w and x for each home respetively 
+                i.e w1,w2,w3,w4 etc. 
+                we can either run a gradient descent on a single value or better consider them as a vector and run gradient descent on vectorised values 
+
+
+        3.2 alternative for gradient descent 
+            -> NOrmal Equation:
+                only for linear regression with one variable 
+                doesnt generalise to other learning algotithims 
+                Normal method may be used in libraries but gradient descent is used widely cause it accounts in mutliple
+                features and vector calculation can be done easily as well
