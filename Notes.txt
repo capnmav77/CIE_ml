@@ -93,3 +93,100 @@ Linear Regression model part 1:
                 doesnt generalise to other learning algotithims 
                 Normal method may be used in libraries but gradient descent is used widely cause it accounts in mutliple
                 features and vector calculation can be done easily as well
+
+        what are hyperparameters ? 
+            Hyperparameters are parameters that are set before the training of a machine learning model begins.
+            They control the learning process and the model parameters that result from it
+            e.g learning rate
+
+        practical tips for Linear Regression : 
+            1.Feature Scaling -> if we know the w1 and w2 .. values we can prioritise the weights accordingly
+                1.1 feature size and parameter size -> scaling up and down to our requirements
+                    how do we scale it down or up ? 
+                        1.mean normalization 
+                            x1 = x1-U / max-min -> we'll get a value in the range of -1 to 1 [we do so to reduce the calculations]
+                        2.z score normalization 
+                            x1 = x1-U / variance of the data -> it varies on the data eg: -3 to 3
+            
+                1.2. make sure the learning rate is working correctly : 
+                    dont overshoot the number of iterations and make sure sufficient amount are present , at a time there will occur saturation, 
+                    when it does, keep it nearly that value.
+                    values of a to try -> should be varied on the data 
+
+            2.Feature Engineering : 
+                to calculate a new variable or a feature using the given features e.g: area = length x breadth 
+
+            3.Polynomial Regression: 
+                we can change the data by adding a feature to keep the trend e.g: w1x + w2x^2 -> w1x+ w2x^2 + w3x^3
+                * must to use feature scaling when we use Polynomial regression to convert it to a nearly linear regression .
+                
+
+    Classification: 
+        binary classification..
+
+        1.basic simple questions : we use [binary classification].
+            is email a spam - yes or no -> classification binary since we use yes or no 
+            class = category 
+
+        2.Logistic Regression: 
+            we use sigmoid function in order to seperate the classes into binary 
+            threshold - we use a proper best fit line to match the dataset , 
+            it outputs between 0 and 1 
+                sigmoid  = 1 / (1+ e^-z) where 0<g(z)<1
+
+            f(x) = g(z) = g(w.x + b)
+            a.k.a - logistic regression 
+
+            not all the time we get either 1 or 0 , sometimes we get a decimal between like: 0.2, 0.4 etc
+            this indicates the probablity that the output will be 1.
+            p(y=0)+ p(y=1) = 1
+
+            f(x) = P(y=1|x;w,b) -> probablity that y=1 given x , parameters are w and b
+
+        3.Decision Boundary:
+            if we have a value below a Boundary we seperate it into a lower class and above it to a higer class.
+
+            wkt g(z) = g(w1x1+w2x2+b)
+            decision boundary z = 0 
+                x1+x2 = 3 when b=3 
+                therefore if a data has < 3 -> class 1 
+                          else class 2
+                
+                *this applies to all shapes, a line , circle etc.
+                Non - linear decision boundaries -> may be a more complex shape or line 
+        
+        4.Cost Function for Logistic Regression 
+            it remains the same almost entirely apart from the part where the F(x) changes to sigmoid function...
+            -> i.e F(x) = 1/(1+e^(-w.x-b)
+            for n features and m datasets -> we would be having w1 + w2 + w3 ... n+b parameters
+
+            squared error cost :
+                what happens if there are multiple minimas locally 
+                we need to come up with a new strategy >>>
+
+            logistic loss fuction:
+                we use a logarathimic graph to represent when we have 0 or 1
+                i.e if f(x)->1 then loss ->0
+                and if f(x)->0 then loss -> inf
+            
+                for y = 1 => -log(f(x))
+                for y = 0 => -log(1-f(x))
+
+        5.Simplified Cost Function for Logistic Regression
+            we have L(f(x),y) = -y*log(f(x))-(1-y)log(1-f(x))
+                this function automatically eliminates the other possibility of y 
+            if we divide it by m then it will be a cost function : 
+                j(w,b) = 1/m(-y*log(f(x))-(1-y)log(1-f(x)))
+
+        6.problem of overfitting :
+            we fit the graph too much , i.e passes through the exact points 
+            1.underfit -> it has high bias and less variance[a lot of error], cold af.
+            2.properfit -> generalized data where it just fits exactly enough [minimum error acceptable], just the right temperature .
+            3.overfitting -> fits the training set extremely well, it has a lot of variance, and is tightly packed, too hot .
+
+        7.addressing overfitting:
+            
+
+
+
+            
