@@ -55,3 +55,20 @@ Linear Regression model part 1:
             in order to increase the accuracy of the model we need to minimize the cost of the model hence we need something called
 
 
+        2. Gradient descent: 
+            w = w- a*diff(J[w,b])/diff(w) // where a is the learning rate decided by us 
+            similarly 
+            b = b- a*diff(J[w,b])/diff(b)
+
+            in order to get the minimum function we need to run them simultaneously as w depends on b 
+            therefore we need to decide the learning rate as optimally as 
+
+            how do we run them simultaneously?
+            -> we store the w and b in temporary value and then update them simultaneously
+                temp_w =  w- a*diff(J[w,b])/diff(w) 
+                temp_b =  b- a*diff(J[w,b])/diff(b)
+
+                w = temp_w
+                b = temp_b
+            
+            if there are multiple minimas then we use squared error cost to find any one minima 
