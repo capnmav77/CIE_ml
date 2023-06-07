@@ -279,12 +279,13 @@ Train a Neural Network in TensorFlow:
         ])
     2. compile the model -> loss function and optimizer - module.compile
     3. train the model -> module.fit 
--> loss and cost functions are the same thing :
-    model.compile(loss = BinaryCrossentropy(), optimizer = SGD(learning_rate=0.2), metrics = ['accuracy']) -> gives out the loss function and optimizer -> logistic regression
-    model.compile(loss = MeanSquaredError(), optimizer = SGD(learning_rate=0.2), metrics = ['accuracy']) -> linear regression
--> Gradient descent ->
-        model.fit(x_train,y_train, epochs = 100, batch_size = 100, verbose = 2) -> x_train and y_train are the training data
-    and epochs are the number of times the data is passed through the model.
+
+    -> loss and cost functions are the same thing :
+        model.compile(loss = BinaryCrossentropy(), optimizer = SGD(learning_rate=0.2), metrics = ['accuracy']) -> gives out the loss function and optimizer -> logistic regression
+        model.compile(loss = MeanSquaredError(), optimizer = SGD(learning_rate=0.2), metrics = ['accuracy']) -> linear regression
+    -> Gradient descent ->
+            model.fit(x_train,y_train, epochs = 100, batch_size = 100, verbose = 2) -> x_train and y_train are the training data
+        and epochs are the number of times the data is passed through the model.
 
 
 Activation Functions: 
@@ -326,20 +327,108 @@ Activation Functions:
         -if we use RELU activation function for the last layer then the output will be a RELU function of the input.
 
 
-Multiclass classification example: 
-    softmax activation function -> g(z) = e^zj/sum(e^zk) -> gives out the probability of the output being the class j.
-    therefore in order to classify 10 objects we need 10 neurons in the output layer.
-    the neuron with the highest probability is the output of the model.
+    Multiclass classification example: 
+        softmax activation function -> g(z) = e^zj/sum(e^zk) -> gives out the probability of the output being the class j.
+        therefore in order to classify 10 objects we need 10 neurons in the output layer.
+        the neuron with the highest probability is the output of the model.
 
---> Logistic regression is a Genralized form of Softmax function . 
-    softmax function -> g(z) = e^zj/sum(e^zk) 
-    loss(a1. . .  aN,y) = -loga1 if y = 1
-                        = -log(1-a1) if y = 0 => -log(a2) if y = 0
-                        it goes on ...
+    --> Logistic regression is a Genralized form of Softmax function .
+
+        softmax function -> g(z) = e^zj/sum(e^zk) 
+        loss(a1. . .  aN,y) = -loga1 if y = 1
+                            = -log(1-a1) if y = 0 => -log(a2) if y = 0
+                            it goes on ...
+        
+        model.compile(loss = SparseCatrgoricalCrossEntropy())
+
+
+        model.compile(loss = BinaryCrossentropy(from_logits = True)) -> to be more numerically accurate and avoid Numerical roundoff error.
+            
+
+MultiLabel Classification: 
+    it labels the data as present or not depending on the dataset , more than classification 
+
+Multi-label : 
+    adams algorithim [adaptive movement estimation] = adam(learning_rate = 0.01) -> adam is a optimizer algorithim.
+    it varies the learning rate [alpha] based on the gradient descent.
+
+
+
+
+->> Debugging a Learning algorithim:
+    try getting more example 
+    increasing or decreasing the learning rate[a] and changing the regularization value [lambda]
+
+    Machine Learning diagnostic
+
+    Evaluatig your model 
+        since we'll be training our model on hundreds of parameters we cannot visualise it , hence 
+        we divide the data for training and testing.In doing so we can check how accurate our model is.
     
-    model.compile(loss = SparseCatrgoricalCrossEntropy())
+    we take a graph that is overfitting then we train it to minimize the cost function of the training dataset 
+    then we test it using the testing dataset
+
+    the difference between cost function and errror is there is no lambda [regularization] in error function.
+    eg error -> the amount of error / the amount of dataset = 1/500 = 0.2% error[1 error in 500 dataset]
+
+    Model selection : 
+        there are 2 types of errors -> jtest = is the fraction of the test set that has been misclassified
+                                       and jtrain = is the fraction of the train set that has been misclassified .
+
+            -usually jtest is high and jtrain is low.
+            -we check if jtest and jtrain are better?jtest is better estimate of how the model will generalise to new data than jtrain.
+            
+            -we can use jtest to select the model that we want to use.we select the model with the least amount of error.
+            fit parameters by minimizing the jtest and jtrain .
 
 
-    model.compile(loss = BinaryCrossentropy(from_logits = True)) -> to be more numerically accurate and avoid Numerical roundoff error.
+            Bias - Jtrain 
+            Variance - Jtest
+
+            jcv = cross validation  = Jtest -> it is the error of the cross validation set.
+            
+            1. underfit - bias is high
+                          jtrain is high 
+                          variance is low
+                          jtest is high  
+            2. properfit - bias is low
+                          jcv is low 
+                          variance is low
+                          jtest is low
+            3. overfit - bias is low
+                          jtrain is low
+                          variance is high
+                          jcv is high
+    Learning curves : 
+        jtest vs jtrain are both inversely proportional to each other.
+        jtest vs m is inversely proportional to each other.[more the training data less the testing error]
+        jtrain vs m is directly proportional to each other.[more the training data more the training error]
+
+    therefore 
+        -IF THERE IS MORE BIAS THEN INCREASING THE NUMBER OF TRAINING DATA WON'T HELP.
+        -IF THERE IS MORE VARIANCE THEN INCREASING THE NUMBER OF TRAINING DATA WILL HELP.
+    
+        WE CAN DECREASE THE BIAS BY ADDING MORE FEATURES.
+        BY INCREASING THE LAMBDA WE CAN DECREASE THE VARIANCE AND BY DECREASING IT WE ADD MORE BIAS INTO THE MODEL.
         
 
+
+    BIAS AND VARIANCE IN NEURAL NETWORK: 
+        does it do well in training set?
+        no: high bias, try bigger network 
+        yes: does it do well in test set/cross validation set?
+            no: high variance, try regularization,try more data
+            yes: done -> perfect model 
+
+
+    Iterative loop of ML development : 
+        1.choose architecture(model,data,etc)
+        2.train and evaluate
+        3.diagonistics(bias,variance and error analysis)
+
+    
+    
+
+
+
+    
