@@ -185,8 +185,161 @@ Linear Regression model part 1:
             3.overfitting -> fits the training set extremely well, it has a lot of variance, and is tightly packed, too hot .
 
         7.addressing overfitting:
-            
+            if we dont have sufficient data then we go through a crisis of underfitting therefore we need right amount of features .
+
+            reducing overfitting: 
+            1.Collect more data:
+                increasing the number of training data.
+            2.Select Features
+                reduce the number of features that need to be trained: not all features are important 
+            3.regularization[reducing the size of parameters a.k.a weights]: 
+                reducing the features results in loss of information 
+                keep all the features , but reduce the weights of each features and parameters.
+                works well when we have lots of features 
+
+        8.Cost Function with regularization: 
+            we introduce a new parameter called lambda -> regularization parameter that selects the important feature 
+            therefore the regularization term will be [(lambda/2*m) * summ[wj]] 
+            * there is a seperate term for b, but since its insignificant we shall ignore it for our convinence
+
+            our main goal is to minimize cost function , therefore lambda balances -> -fit data and -keeping wj small 
+                - if lambda is very very large then every features are ignored and tend to 0 hence we are just left with b. 
+                - therefore we have to choose lambda in such a way as to only choose proper features 
+        
+        9.Regularized linear Regression:
+            we optimise wj' =  in Gradient descent by using the normal gradient descent + [lambda/m * wj]
+            we can leave b' as it is cause theer will be no difference
+
+            once we simplify the equation: 
+                shrink wj = (1-a*lambda/m) -> causes all w's to shrink and the lesser one's get's neglected.
+
+        10.Regularized Logistic Regression: 
+            we find the regular cost function which is similar to the one in linear regression 
+            once we step into gradient descent : 
+                we have to include lambda in here as well, regularization parameter is hence useful to decrease the unwanted parameters 
+        
+        EOF of supervised learning ...
 
 
 
-            
+
+
+
+Advanced Learning Algorithims: 
+    Neural Networks: 
+        algorithims that try to mimic the brain .
+        a group of neurons form the neural layer that takes in multiple outputs and gives out multiple outputs .
+        mulitple hidden layers are layers in between that process the data from input to output.
+
+        eg: in image recognition-> 1.st layer - processess the edge and gives it to further layers.
+                                   2.nd layer - processess the features like nose, ear, eyes etc. using the edges 
+                                   3.rd layer - recognises the face using the features and recognises the perfect image.
+        
+        feed in the data -> input layer. 
+        then pass in to the first layer .
+        then we process it at multiple layers .
+        we get a output after all the layers have done their work. 
+
+    Advanced Neural layer
+        1.we layer the data based on superscript -> denotes which layer has processed them and if its input -> a then its based on which layer has provied it .
+
+        activation function -> aj[l] = g( wj[l] * a[l-1] + bj[l] )  //parameters w and b of layer l and unit j. while input a is of previous layer .
+
+        code -> for neural network: 
+        x = np.array([[200.0,17.0]]) --> input for the first layer.
+        layer_1 = Dense(units=3,activation ='sigmoid' ) --> the neural layer 1 containing 3 neurons and sigmoid as activation function .
+        a1 = layer_1(x)
+        layer_2 = Dense(units =1, activation = 'sigmoid)
+        a2 = layer_2(a1)
+        output -> a2 
+
+        once we get a2 we use threshold value to categorise the input as yes or no. 
+    
+    Data in Tensorflow:
+        its a python library for deep learning :
+            for a 2x3 matrix = np.array([[1,2,3],
+                                         [4,5,6]])
+
+            tf.Tensor([[0.8]],shape = (1,1), dtype = float32)//storing data into tensor instead of numpy 
+            a2.numpy() -> activation function 
+            array([[0.8]], dtype=float32) -> numpy always gives out 1-d array , and the results are always 1-d 
+            meanwhile tensorflow provides a multiple dimensionality resutlt.
+
+    building a Neural Network:
+        Dense function ?
+        def Dense(units,activation = None) -> it takes in the number of neurons and activation function as input and gives out the output of the layer .
+    
+
+Train a Neural Network in TensorFlow: 
+    1. define the model using sequential model -> manual hyperparameters
+        model = sequential([
+            Dense(units=25, activation ='sigmoid')
+            Dense(units=15, activation ='sigmoid')
+            Dense(units=1, activation ='sigmoid')
+        ])
+    2. compile the model -> loss function and optimizer - module.compile
+    3. train the model -> module.fit 
+-> loss and cost functions are the same thing :
+    model.compile(loss = BinaryCrossentropy(), optimizer = SGD(learning_rate=0.2), metrics = ['accuracy']) -> gives out the loss function and optimizer -> logistic regression
+    model.compile(loss = MeanSquaredError(), optimizer = SGD(learning_rate=0.2), metrics = ['accuracy']) -> linear regression
+-> Gradient descent ->
+        model.fit(x_train,y_train, epochs = 100, batch_size = 100, verbose = 2) -> x_train and y_train are the training data
+    and epochs are the number of times the data is passed through the model.
+
+
+Activation Functions: 
+    uses g(z) as activation function , 
+
+    the most important activation function -> 
+        RELU -> rectified linear unit -> g(z) = max(0,z) -> if z is negative then g(z) = 0 else g(z) = z
+        Regression -> linear activation function -> g(z) = z
+        Binary Classification -> sigmoid activation function -> g(z) = 1/(1+e^-z)
+
+    how to choose activation function: 
+        1. what do we use for output layer?
+            -if its a binary classification problem we use sigmoid activation function.
+            -if its a regression problem we use linear activation function.
+            -if we are using for positive output we use RELU activation function.
+
+        2. what do we use for hidden layers?
+            -we use RELU activation function for hidden layers.
+            -if we have a lot of layers we use RELU activation function for all the layers except the last one.
+            -if we have a lot of layers we use sigmoid activation function for the last layer.
+
+        Q. what do we use if its a binary classification on both hidden and output layers?
+            -we use sigmoid activation function for both hidden and output layers.
+        
+        Q. what do we use if its a regression problem on both hidden and output layers?
+            -we use linear activation function for both hidden and output layers.
+        
+        Q. what do we use if its a positive output problem on both hidden and output layers?
+            -we use RELU activation function for both hidden and output layers.
+    
+    why do we need activation function ?
+        -if we dont use activation function then the output will be a linear function of the input.
+        -if we use linear activation function for all the layers then the output will be a linear function of the input.
+        -if we use sigmoid activation function for all the layers then the output will be a sigmoid function of the input.
+        -if we use RELU activation function for all the layers then the output will be a RELU function of the input.
+        -if we use sigmoid activation function for all the layers except the last one then the output will be a sigmoid function of the input.
+        -if we use RELU activation function for all the layers except the last one then the output will be a RELU function of the input.
+        -if we use sigmoid activation function for the last layer then the output will be a sigmoid function of the input.
+        -if we use RELU activation function for the last layer then the output will be a RELU function of the input.
+
+
+Multiclass classification example: 
+    softmax activation function -> g(z) = e^zj/sum(e^zk) -> gives out the probability of the output being the class j.
+    therefore in order to classify 10 objects we need 10 neurons in the output layer.
+    the neuron with the highest probability is the output of the model.
+
+--> Logistic regression is a Genralized form of Softmax function . 
+    softmax function -> g(z) = e^zj/sum(e^zk) 
+    loss(a1. . .  aN,y) = -loga1 if y = 1
+                        = -log(1-a1) if y = 0 => -log(a2) if y = 0
+                        it goes on ...
+    
+    model.compile(loss = SparseCatrgoricalCrossEntropy())
+
+
+    model.compile(loss = BinaryCrossentropy(from_logits = True)) -> to be more numerically accurate and avoid Numerical roundoff error.
+        
+
