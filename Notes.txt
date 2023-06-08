@@ -157,7 +157,7 @@ Linear Regression model part 1:
         
         4.Cost Function for Logistic Regression 
             it remains the same almost entirely apart from the part where the F(x) changes to sigmoid function...
-            -> i.e F(x) = 1/(1+e^(-w.x-b)
+            -> i.e F(x) = 1/(1+e^(-w.x-b))
             for n features and m datasets -> we would be having w1 + w2 + w3 ... n+b parameters
 
             squared error cost :
@@ -198,17 +198,19 @@ Linear Regression model part 1:
                 works well when we have lots of features 
 
         8.Cost Function with regularization: 
+            L2 regularization ->
             we introduce a new parameter called lambda -> regularization parameter that selects the important feature 
             therefore the regularization term will be [(lambda/2*m) * summ[wj]] 
             * there is a seperate term for b, but since its insignificant we shall ignore it for our convinence
 
             our main goal is to minimize cost function , therefore lambda balances -> -fit data and -keeping wj small 
-                - if lambda is very very large then every features are ignored and tend to 0 hence we are just left with b. 
+                - if lambda is very very large then every features are ignored and tend to 0 hence we are just left with b. causes more regularization.
                 - therefore we have to choose lambda in such a way as to only choose proper features 
+                - a large amount of regularization parameter causes underfitting    
         
         9.Regularized linear Regression:
             we optimise wj' =  in Gradient descent by using the normal gradient descent + [lambda/m * wj]
-            we can leave b' as it is cause theer will be no difference
+            we can leave b' as it is cause there will be no difference
 
             once we simplify the equation: 
                 shrink wj = (1-a*lambda/m) -> causes all w's to shrink and the lesser one's get's neglected.
@@ -427,8 +429,45 @@ Multi-label :
         3.diagonistics(bias,variance and error analysis)
 
     
+Decision Trees: 
+    we aim on maximizing the purity of the leaf nodes.
+    we use entropy to measure the purity of the leaf nodes.[entropy - measure of randomness]
+    wehen do we stop splitting? : 
+        * When a node is 100% one class
+        • When splitting a node will result in the tree exceeding 
+        a maximum depth 
+        • When improvements in purity score are below a 
+        threshold
+        • When number of examples in a node is below a 
+        threshold
+
+    WE NEED TO HAVE HIGHER ENTROPY AT THE TOP AND LOWER ENTROPY AT THE BOTTOM.
+    ENTROPY -> FORMULA : SUM(-p*log(p)) -> p is the probability of the class.
+        information gain = entropy(parent) - entropy(children)
+        therefore whichever has a higher entropy has the higher information gain. 
+        and we take the highest information gain as our result.
     
-
-
-
+    what happens when we have multiple features?
+        we take the feature with the highest information gain and split it.
+        we do this recursively until we get a pure leaf node.
+    Order: 
+        1. calculate entropy of the parent node.
+        2. calculate entropy of the children nodes.
+        3. calculate information gain.
+        4. split the node with the highest information gain.
+        5. repeat the process until we get a pure leaf node.
     
+    what happens when we have multiple classes?
+        we use one hot encoding. 
+        if we have a continuous variable then we use threshold function to split the data.
+
+
+    Regression Trees: 
+        we use mean squared error to measure the purity of the leaf nodes
+        we use mean absolute error to measure the purity of the leaf nodes
+        
+
+    the modules for decision trees: 
+    -XGBoost  , XBGclassifier 
+    its a opensource model for decision trees.
+    fast efficient implementation of gradient boosting.
