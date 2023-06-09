@@ -471,3 +471,67 @@ Decision Trees:
     -XGBoost  , XBGclassifier 
     its a opensource model for decision trees.
     fast efficient implementation of gradient boosting.
+
+
+-> classification: 
+
+    from xgboost import XGBClassifier
+    model = XGBClassifier()
+    model.fit(X_train, y_train)
+    y_pred = model.predict(X_test)
+
+-> Regression: 
+
+    from xgboost import XGBRegressor
+    model = XGBRegressor()
+    model.fit(X_train, y_train)
+    y_pred = model.predict(X_test)
+
+
+
+
+unsupervised_learning , recommender systems and reinforcement Learning:
+
+
+UN-SupervisedLearning: 
+    we don't have any labels in the dataset. 
+    we try to find patterns in the dataset.
+    we try to find clusters in the dataset.
+
+
+    k-MEANS algorithim: 
+        randomly initialize k cluster centroids.
+        repeat until convergence:
+            for every training example:
+                find the nearest centroid and assign it to that cluster.
+            for every cluster:
+                compute the mean of the points assigned to that cluster and assign it to the centroid.
+
+    Anomaly Detection: 
+        Gaussian distribution
+            mean and variance
+            say x is a number then probability of x is given by p(x) = 1/sqrt(2*pi*sigma^2) * e^(-1/2*(x-mu)^2/sigma^2) where [mu is the mean and sigma is the variance.]
+            
+    Anomaly detection: 
+        1.Choose n features xi that you think might be indicative of anomalous examples.
+        2.Fit parameters mu1, ..., mun, sigma1, ..., sigman
+        3.Given a new example x, compute p(x)
+            if p(x) < epsilon, then flag this example as an anomaly. [epsilon is the threshold value]
+            else this example is not an anomaly.
+
+        therefore this is useful to check for anomalous data from the dataset.
+
+    Anomaly vs SupervisedLearning
+
+        Anomaly detection:
+            -Very small number(0-20) of positive examples (y = 1)[exceptions]
+            -Large number of negative examples (y = 0)
+            -Many different "types" of anomalies. Hard for any algorithm to learn from positive examples what the anomalies look like;
+             future anomalies may look nothing like any of the anomalous examples we've seen so far.
+        Supervised learning:
+            -Large number of positive and negative examples.
+            -Enough positive examples for algorithm to get a sense of what positive examples are like, future positive examples likely to be similar to ones in training set.
+
+    Choosing what features to use:
+        - using as many features as possible 
+        - create a new features which are relevant 
