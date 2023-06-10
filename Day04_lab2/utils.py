@@ -30,8 +30,7 @@ def multivariate_gaussian(X, mu, var):
         var = np.diag(var)
         
     X = X - mu
-    p = (2* np.pi)**(-k/2) * np.linalg.det(var)**(-0.5) * \
-        np.exp(-0.5 * np.sum(np.matmul(X, np.linalg.pinv(var)) * X, axis=1))
+    p = (2* np.pi)**(-k/2) * np.linalg.det(var)**(-0.5) * np.exp(-0.5 * np.sum(np.matmul(X, np.linalg.pinv(var)) * X, axis=1))
     
     return p
         
