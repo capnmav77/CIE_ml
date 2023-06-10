@@ -535,3 +535,96 @@ UN-SupervisedLearning:
     Choosing what features to use:
         - using as many features as possible 
         - create a new features which are relevant 
+
+
+
+
+RECOMMENDER SYSTEMS:
+    parameters - features: genre, actors, director, year, etc.
+        we can use the above features to recommend movies to the user.
+
+        the movie types are taken as features[xi] and the user ratings are taken as the labels/parameters[wi] for each user.
+        we then use linear regression -> cost function with regularization and then gradient descent to find the parameters.
+            first we conisder summation for the rating part then we do it for the user part and then we add the regularization term.
+        we then use the parameters to predict the ratings for the movies that the user hasn't watched yet.
+
+
+        what if there is no genre for movies ?
+            we assume the values of xi for the movies with respect to the w 
+            what happens to the regularization value?
+                we don't regularize the bias term.[i.e we don't regularize the w0 term][we regularize the xk terms]
+    Collaborative filtering: 
+                cost function to learn w: 
+                    we use the same cost function as above but we don't regularize the w0 term.
+                cost function to learn x:
+                    we use the same cost function as above but we don't regularize the x0 term.
+                when we dont know both we regularize both the terms.
+                therefore we use the above two cost functions to learn the parameters.
+                using this we can predict both -> the ratings for the movies that the user hasn't watched yet and the movies that don't have any genre.
+
+                we use gradient descent for the above two cost functions to learn the parameters[w,b,x since we dont know x as well].
+                    the gradient descent function for x is the same as the one used for w and b 
+
+            Binary Labels: 
+                for eg> did user j purchase an item after being shown? 0/1/?
+                        did user j fav/like an item ? 0/1/?
+                        did user j spend atleast 30s with a item? 0/1/?
+                        did user j click on a item ? 0/1/?
+
+                we use the same cost function as above but we use the sigmoid function to predict the values.
+
+                    loss function for logistic regression> -log(f(x)) if y=1 and -(1-x)log(1-f(x)) if y=0
+
+            Mean Normalization: 
+                what if we have a new user?     
+                    w and b are the same for all the users.
+                    then we initialize the values of the unknowns to 0 and then we use gradient descent to learn the parameters.
+                    we can also use mean normalization to initialize the values of the unknowns.
+                
+                1. we calculate the mean of the ratings for each movie.
+                2. we subtract the mean from the ratings for each movie.[mean normalization]
+                3. we initialize the values of the unknowns to 0 and then we use gradient descent to learn the parameters.[w,b,x]
+                4. we add the mean back to the ratings for each movie.[mean normalization]
+                5. we use the parameters to predict the ratings for the movies that the user hasn't watched yet.
+
+        Tensorflow custom training loop for linear regression:
+            done in slides and we use the predefined functions to do the same hasslefree.
+
+        Limitations of Collaborative Filtering> 
+            1. cold start problem: 
+                what if we have a new user?     
+                    w and b are the same for all the users.
+                    then we initialize the values of the unknowns to 0 and then we use gradient descent to learn the parameters.
+                    we can also use mean normalization to initialize the values of the unknowns.
+                
+            2.use side information about items or users> 
+                item: gnere, movie starts, studio. etc...
+
+    CONTENT BASED FILTERING: 
+            RECOMMEND MOVIES BASED ON THE FEATURES OF THE user and the item to find the good match.
+            Learning to match: 
+                predict rating of user j on movie i as a function of the features of user j and movie i.
+                we use neural networks and gradient descent to learn the parameters.
+                we use seperate neural network for movies and users and in the end we multiply them for the users review. 
+                
+                cost function:  summ (Vuj * Vmi  -  y(i,j))**2 + NN regularization term
+                    where Vu is the users feature and Vm is the movies features.
+
+                    TO find movies similar to movie i -> we find the movies with the smallest distance between the features of the movies.[loss function reduction]
+                    TO find users similar to user j -> we find the users with the smallest distance between the features of the users.[loss function reduction]
+
+        Retrieval and Ranking : 
+            Retrieval:
+                1. generate a list of plausible candidates:
+                    i.e for each 10 movies we predict the nearest 10 more movies of the type.
+                    suggesting and recommending similar movies when we dont have any information about the user.
+                2. rerank the candidates:
+                    Take List retrieved and rank using learned model 
+                    its done when we have user information.
+        
+        Ethical use of recommender systems:
+            be open about your recommendation system with the users.
+        
+        implementation of neural networks using tensorflow 
+        
+                
