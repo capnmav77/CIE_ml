@@ -70,7 +70,7 @@ Linear Regression model part 1:
 
                 w = temp_w
                 b = temp_b
-            
+                
             if there are multiple minimas then we use squared error cost to find any one minima 
 
         3. multiple parameters: 
